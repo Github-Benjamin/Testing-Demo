@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>超级无敌吊炸天五子棋</title>
+    <style type="text/css">
+        html,body{
+            height: 100%;
+        }
+        body{
+            background: url("images/125.jpg");
+            background-size:100% 100% ;
+        }
+        
+        *{margin: 0;padding: 0;}
+        .box{
+            width: 600px;
+            height: 600px;
+            /*background: #5cb85c;*/
+            line-height: 100px;
+            margin: 0 auto;
+        }
+        h2{
+            font-size: 20px;
+            font-family: "楷体";
+            text-align: center;
+            color: white;
+            text-shadow: 2px 1px 1px #000;
+        }
+        canvas{
+            background: white;
+            margin: 0 auto;
+            display: block;
+            box-shadow: 1px 1px 1px #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h2>超级无敌吊炸天五子棋</h2>
+        <canvas id="canvas"  width="450" height="450"></canvas>
+
+    </div>
+
+    <script>
+  console.log('一张网页，要经历怎样的过程，才能抵达用户面前？’\n' +
+            '一位新人，要经历怎样的成长，才能站在技术之巅？\n'+
+            '体验这里的挑战；\n'+
+            '成为这里的主人；\n' +
+            '制作人：小白\n'+
+           'QQ:350105629\n');
+    //拿到画布
+    var canvas =  document.getElementById("canvas");
+    //拿到权限
+    var ctx =canvas.getContext("2d");
+    ctx.strokeStyle = "#8b8b8b";
+    //画线
+    for(var i =0;i<15;i++){
+        ctx.moveTo(15+i*30,15);//起点
+        ctx.lineTo(15+i*30,435);//终点
+        ctx.moveTo(15,15+i*30);//起点
+        ctx.lineTo(435,15+i*30);//终点
+        ctx.stroke()
+    }
+    var onStep = function (i,j,me) {
+        ctx.beginPath();
+        ctx.arc(15+i*30,15+j*30,15,0,Math.PI*2);
+        ctx.closePath();
+        ctx.stroke();
+        //设置渐变色
+        var gradient = ctx.createRadialGradient(15+i*30+2,15+j*30-2,13,15+i*30+2,15+j*30-2,0);
+        if(me){
+            gradient.addColorStop(0,"#0a0a0a");
+            gradient.addColorStop(1,"#636767");
+        }else {
+            gradient.addColorStop(0,"#d1d1d1");
+            gradient.addColorStop(1,"#f9f9f9");
+        }
+        ctx.fillStyle=gradient;
+        ctx.fill();
+    };
+    var me = true;
+    var chessBoard=[];
+    for(var i= -1;i<16;i++){
+        chessBoard[i] = [];
+        for(var j = -1;j<16;j++){
+            chessBoard[i][j] = 0;//没有落子
+        }
+    }
+    var iswin = false;
+    canvas.onclick=function (e) {
+        if(iswin==true){
+            alert("游戏已经结束，刷新后请重新操作！")
+            return;
+        }
+        //获取鼠标元素
+        var x = e.offsetX;
+        var y = e.offsetY;
+        var i = Math.floor(x / 30);
+        var j = Math.floor(y / 30);
+        if (chessBoard[i][j] == 0) {
+            onStep(i, j, me);
+            if (me) {
+                chessBoard[i][j] = 1;
+                chess=1;
+            } else {
+                chessBoard[i][j] = 2;
+                chess=2;
+            }
+            me = !me;
+        } else {
+            alert("你不能在这个位置下棋");
+        }
+        judge(i,j,chess)
+    }
+   function judge(i,j,chess) {
+        var aa = 0;
+        var bb = 0;
+        var cc = 0;
+        var dd = 0;
+       //横排旗子算法
+        for(var a=i;a>=0;a--){
+            if (chessBoard[a][j] !=chess){
+                break;
+            }
+            aa++;
+        }
+        for(var a=i+1;a<15;a++){
+            if (chessBoard[a][j] !=chess){
+                break;
+            }
+            aa++;
+        }
+      //竖排旗子算法
+        for(var a=j;a>=0;a--){
+            if (chessBoard[i][a] !=chess){
+                break;
+            }
+            bb++;
+        }
+        for(var a=j+1;a<15;a++){
+            if (chessBoard[i][a] !=chess){
+                break;
+            }
+            bb++;
+        }
+        //左上右下判断
+        for (var a = i, b = j; a >= 0, b >= 0; a--, b--) {
+            if (chessBoard[a][b] != chess) {
+                break;
+            }
+            cc++;
+        }
+        for (var a = i + 1, b = j + 1; a < 15, b < 15; a++, b++) {
+            if (chessBoard[a][b] != chess) {
+                break;
+            }
+            cc++;
+        }
+        //右上左下判断
+        for (var a = i, b = j; a >= 0, b < 15; a--, b++) {
+            if (chessBoard[a][b] != chess) {
+                break;
+            }
+            dd++;
+        }
+        for (var a = i + 1, b = j - 1; a < 15, b >= 0; a++, b--) {
+            if (chessBoard[a][b] != chess) {
+                break;
+            }
+            dd++;
+        }
+       if(aa>=5 || bb>=5 || cc>=5|| dd>=5){
+            if (chess==1){
+                alert("黑棋赢了！");
+            }else{
+                alert("白棋赢了！");
+            }
+           iswin = true;
+        }
+    }
+    </script>
+
+</body>
+</html>
