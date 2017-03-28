@@ -29,6 +29,8 @@ if __name__ == '__main__':
         t.setDaemon(True)
         t.start()
 
-    sleep(11)
+    # sleep(11)
+    # join()方法，用于等待子线程终止后再执行父进程
+    t.join()
     print "\nall over %s" %ctime()
     f.close()
