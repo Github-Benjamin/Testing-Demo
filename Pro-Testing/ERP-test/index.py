@@ -5,6 +5,8 @@ from model.mysqldo import InsertMysql,SelectMysql,DelMysql
 
 urls = (
     '/','Index',
+    '/page/(.d*)', 'Page',
+    '/jsonpage/(.d*)', 'JsonPage',
     '/post','Post',
     '/del','Del',
     '/edit','Edit',
@@ -14,18 +16,36 @@ render = web.template.render('templates')
 
 class   Index(object):
     def GET(self):
-        sql = 'SELECT id,pname,pguige,pchenbenjia,pxiaoshoujia,psctime,pyxtime,pjhtime from item'
+        sql = 'SELECT id,pname,pguige,pchenbenjia,pxiaoshoujia,psctime,pyxtime,pjhtime from item LIMIT 0,5'
         data = SelectMysql(sql)
-
-        # print data[0].get('pxiaoshoujia')
-        # for i in data:
-        #     for i in i:
-        #         pass
-
         if data:
             return render.index(data)
         else:
             return render.index(None)
+
+class   Page(object):
+    def GET(self,page):
+        try:
+            page = int(page)
+            start = (page-1)*5
+            end = page*5
+            sql = 'SELECT * from item LIMIT %s,%s'%(end,5)
+            data = SelectMysql(sql)
+            return render.index(data)
+        except:
+            raise web.seeother('/')
+
+class   JsonPage(object):
+    def GET(self,page):
+        try:
+            page = int(page)
+            start = (page-1)*5
+            end = page*5
+            sql = 'SELECT * from item LIMIT %s,%s'%(end,5)
+            data = SelectMysql(sql)
+            return json.dumps(data)
+        except:
+            raise web.seeother('/')
 
 class   Post(object):
     def POST(self):
@@ -72,7 +92,7 @@ class   Edit(object):
             try:
                 sql = "update item  set pname='%s',pguige='%s',pchenbenjia='%s',pxiaoshoujia='%s',psctime='%s',pyxtime='%s',pjhtime='%s' where id=%s"%(pname, pguige, pchenbenjia, pxiaoshoujia, psctime, pyxtime, pjhtime,id)
                 SelectMysql(sql)
-                raise web.seeother('/')
+                return json.dumps({'code':200})
             except:
                 return 'Data error'
 

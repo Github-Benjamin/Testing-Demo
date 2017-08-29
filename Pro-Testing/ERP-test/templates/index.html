@@ -10,9 +10,16 @@ $def with(data)
     <style>
         .bigbox{
             text-align: center;
-            margin: 100px auto;
+            margin: 20px auto;
         }
         .datalist{
+            cellspacing:0;
+            cellpadding:0;
+            border-collapse:collapse;
+            empty-cells:show;
+            margin: auto;
+        }
+        .jsondatalist{
             cellspacing:0;
             cellpadding:0;
             border-collapse:collapse;
@@ -41,25 +48,35 @@ $def with(data)
 
     <div class="bigbox">
         $if data:
-            <h3 style="text-align: center">数据统计表</h3>
+            <h3 style="text-align: center">绑定模板数据统计表</h3>
             <table  border="1" class="datalist">
                 <tr><td>序号</td><td>产品名</td><td>产品规格</td><td>成本价</td><td>销售价</td><td>生产日期</td><td>有效日期</td><td>进货日期</td><td>管理</td></tr>
                 $for i in data:
-                    <tr><td>$i.get('id')</td><td>$i.get('pname')</td><td>$i.get('pguige')</td><td>$i.get('pchenbenjia')</td><td>$i.get('pxiaoshoujia')</td><td>$i.get('psctime')</td><td>$i.get('pyxtime')</td><td>$i.get('pjhtime')</td><td>&nbsp;&nbsp;<a href="javascript:;" onclick="Getid(this);" id="$i.get('id')">编辑</a>&nbsp;&nbsp;<a href=javascript:if(confirm('确实要删除该内容吗?'))location="/del?id=$i.get('id')">删除</a>&nbsp;&nbsp;</td></tr>
+                    <tr><td>$i.get('id')</td><td>$i.get('pname')</td><td>$i.get('pguige')</td><td>$i.get('pchenbenjia')</td><td>$i.get('pxiaoshoujia')</td><td>$i.get('psctime')</td><td>$i.get('pyxtime')</td><td>$i.get('pjhtime')</td><td>&nbsp;&nbsp;<a href="javascript:;" onclick="Getid(this);" id="$i.get('id')" style='text-decoration:none;'>编辑</a>&nbsp;&nbsp;<a href=javascript:if(confirm('确实要删除该内容吗?'))location="/del?id=$i.get('id')" style='color: #ff0000;text-decoration:none;'>删除</a>&nbsp;&nbsp;</td></tr>
             </table>
+            <a href="/">首页</a> <a href="/page/4">尾页</a>
         $else:
             No data
         <br>
 
+
+            <h3 style="text-align: center">Ajax数据统计表</h3>
+            <table  border="1" class="jsondatalist">
+                <tr><td>序号</td><td>产品名</td><td>产品规格</td><td>成本价</td><td>销售价</td><td>生产日期</td><td>有效日期</td><td>进货日期</td><td>管理</td></tr>
+            </table>
+
+            <a href="JavaScript:;" class="pageup">上一页</a><a href="JavaScript:;" class="pagedn">下一页</a>
+
+
         <div class="editdata">
-            <form class="Newdata" method="post" action="/edit">
+            <!--<form class="Newdata" method="post" action="/edit">-->
                 <table  border="1" class="datalist">
                     <b>修改数据<i>X</i></b>
                     <tr><td>序号</td><td>产品名</td><td>产品规格</td><td>成本价</td><td>销售价</td><td>生产日期</td><td>有效日期</td><td>进货日期</td></tr>
-                    <tr ><td><input type="text" id="editid" required="required"  name="id"  size="8"></td><td><input type="text" id="editpname" required="required"  name="pname"  size="8"></td><td><input type="text" id="editpguige" name="pguige"   size="8"></td><td><input type="text" id="editpchenbenjia" name="pchenbenjia" size="8"></td><td><input type="text" id="editpxiaoshoujia" name="pxiaoshoujia" size="8"></td><td><input type="text" class="selecttime" id="editpsctime" name="psctime" placeholder="选择时间" size="11"></td><td><input type="text" class="selecttime" id="editpyxtime" name="pyxtime" placeholder="选择时间" size="11"></td><td><input type="text" class="selecttime" id="editpjhtime" name="pjhtime" placeholder="选择时间"  required="required" size="11"></td></tr>
+                    <tr ><td><input type="text" id="editid" required="required"  name="id"  value="" size="8"></td><td><input type="text" id="editpname" required="required"  name="pname" value="" size="8"></td><td><input type="text" id="editpguige" name="pguige"  value="" size="8"></td><td><input type="text" id="editpchenbenjia"  name="pchenbenjia" value="" size="8"></td><td><input type="text" id="editpxiaoshoujia" name="pxiaoshoujia" value="" size="8"></td><td><input type="text" class="selecttime" id="editpsctime" value="" name="psctime" placeholder="选择时间" size="11"></td><td><input type="text" class="selecttime" id="editpyxtime" name="pyxtime" placeholder="选择时间" value="" size="11"></td><td><input type="text" class="selecttime" id="editpjhtime" name="pjhtime" placeholder="选择时间" value=""  required="required" size="11"></td></tr>
                     <tr ><td colspan="8"><input type="submit" value="提交" class="submit" required="required"></td><tr >
                 </table>
-            </form>
+            <!--</form>-->
         </div>
 
         <form action="/post" method="post" class="inputtxt">
