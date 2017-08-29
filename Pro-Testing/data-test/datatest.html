@@ -1,0 +1,8 @@
+$def with(ret)
+
+$for i in ret.get('data'):
+    $i<br>
+    $for x in i:
+        $x $i[x]<br>
+    <br>
+$ret.get('page')
