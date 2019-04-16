@@ -15,11 +15,14 @@ git commit -a -m "update master text.txt"
 
 gti commit -a -m "update hotfix text.txt"
 
-haha
 
-既然测试中错误，那就将错就错吧
 
-git commit -a -m "update iss001 text.txt"
+我是hotfix分支
+我的操作步骤：
+1、删除text中多余的部分
+2、新建属于我的内容
+
+
 
 
 
