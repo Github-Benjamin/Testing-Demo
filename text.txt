@@ -1,0 +1,19 @@
+
+
+
+我是主分支的内容
+步骤：
+1、新建一个hotfix分支，热修复一些问题
+2、再新建一个分iss001分支，修复一些优先级较低的问题
+3、步骤1、步骤2 修复同一个文件，制造合并分支时的冲突
+
+
+git commit -a -m "update master text.txt"
+
+
+
+gti commit -a -m "update hotfix text.txt"
+
+
+
+

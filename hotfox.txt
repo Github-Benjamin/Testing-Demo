@@ -1,6 +1,0 @@
-
-git checkout -b hotfix
-
-测试同一个git不同分支的热修复问题的分支合并
-
-
