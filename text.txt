@@ -8,10 +8,12 @@
 2、再新建一个分iss001分支，修复一些优先级较低的问题
 3、步骤1、步骤2 修复同一个文件，制造合并分支时的冲突
 
-
+master分支修改
 git commit -a -m "update master text.txt"
 
 
+hotfix分支修改
+git commit -a -m "update hotfix text.txt"
 
 gti commit -a -m "update hotfix text.txt"
 
@@ -23,6 +25,12 @@ gti commit -a -m "update hotfix text.txt"
 2、新建属于我的内容
 
 
+iss01分支修改
+git commit -a -m "update iss01 text.txt"
 
 
+我是iss01分支的内容
+操作步骤：
+1、修改存在记录的内容
+2、新增iss01分支的内容
 
