@@ -1,6 +1,7 @@
 
 
 
+
 我是主分支的内容
 步骤：
 1、新建一个hotfix分支，热修复一些问题
@@ -14,6 +15,11 @@ git commit -a -m "update master text.txt"
 
 gti commit -a -m "update hotfix text.txt"
 
+haha
+
+既然测试中错误，那就将错就错吧
+
+git commit -a -m "update iss001 text.txt"
 
 
 
